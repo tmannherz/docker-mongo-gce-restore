@@ -19,16 +19,11 @@ default_project_id = $gs_project_id
 EOF
 
 DB_HOST="$MONGO_HOST"
-DB_NAME="$MONGO_DATABASE"
 BUCKET_NAME="$GS_RESTORE_BUCKET"
 FILE="$GS_RESTORE_FILE"
 
 if [ -z "$DB_HOST" ]; then
     echo "DB_HOST is empty."
-    exit 1
-fi
-if [ -z "$DB_NAME" ]; then
-    echo "DB_NAME is empty."
     exit 1
 fi
 if [ -z "$BUCKET_NAME" ]; then
@@ -52,4 +47,4 @@ fi
 echo "Copying gs://$BUCKET_NAME/$FILE to $RESTORE_DIR/$FILE"
 /root/gsutil/gsutil cp gs://$BUCKET_NAME/$FILE $FILE 2>&1
 
-mongorestore --host "$DB_HOST" --db=$DB_NAME $GZIP --archive="$FILE"
+mongorestore --host "$DB_HOST" $GZIP --archive="$FILE"

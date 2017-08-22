@@ -39,7 +39,7 @@ mkdir -p $RESTORE_DIR
 cd $RESTORE_DIR
 
 GZIP=""
-if [[ "$FILE" == "*.gz" ]]; then
+if [[ $FILE =~ \.gz$ ]]; then
     GZIP="--gzip"
 fi
 
